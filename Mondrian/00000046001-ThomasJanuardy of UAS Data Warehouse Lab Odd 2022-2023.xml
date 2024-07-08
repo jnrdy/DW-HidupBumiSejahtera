@@ -1,0 +1,58 @@
+<Schema name="New Schema1">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Building Facility 1">
+    <Hierarchy name="dim_building_fac_1" visible="true" hasAll="true" allMemberName="Semua Building Facility 1" primaryKey="SK_Building_fac_1">
+      <Table name="dim_building_fac_1">
+      </Table>
+      <Level name="FacilityTypeID" visible="true" column="FACILITYTYPEID" nameColumn="FACILITYTYPEID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Building Facility 2">
+    <Hierarchy name="dim_building_fac_2" visible="true" hasAll="true" allMemberName="Semua Building Facility 2" primaryKey="SK_Building_fac_2">
+      <Table name="dim_building_fac_2">
+      </Table>
+      <Level name="FacilityTypeID" visible="true" column="FACILITYTYPEID" nameColumn="FACILITYTYPEID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Electricity">
+    <Hierarchy name="dim_electricity" visible="true" hasAll="true" allMemberName="Semua Building Electricity Use" primaryKey="SK_Electricity">
+      <Table name="dim_electricity">
+      </Table>
+      <Level name="Year" visible="true" column="YEAR" nameColumn="YEAR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Gas">
+    <Hierarchy name="dim_gas" visible="true" hasAll="true" allMemberName="Semua Building Gas Use" primaryKey="SK_Gas">
+      <Table name="dim_gas">
+      </Table>
+      <Level name="Year" visible="true" column="YEAR" nameColumn="YEAR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Building">
+    <Hierarchy name="dim_building" visible="true" hasAll="true" allMemberName="Semua Building" primaryKey="SK_Building">
+      <Table name="dim_building">
+      </Table>
+      <Level name="FacilityTypeID" visible="true" column="FACILITYTYPEID" nameColumn="FACILITYTYPEID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Hidup_Bumi_Sejahtera" visible="true" cache="true" enabled="true">
+    <Table name="fact_residential">
+    </Table>
+    <DimensionUsage source="Electricity" name="Electricity" visible="true" foreignKey="SK_Electricity" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Gas" name="Gas" visible="true" foreignKey="SK_Gas" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Building" name="Building" visible="true" foreignKey="SK_Building" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Total Residential Electricity Used per Year" column="AnnualElectricity_kWh_perYear" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Total Residential Gas Used per Year" column="AnnualGas_kBtu_perYear" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Total Recorded Buildings" column="DataJamID" aggregator="count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
